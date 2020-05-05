@@ -39,7 +39,7 @@ class SubmitLinksTest extends TestCase
 
         $response->assertSessionHasErrors(['title', 'url', 'description']);
     }
-}
+
     /** @test 3 */
     function link_is_not_created_with_an_invalid_url()
     {
@@ -64,9 +64,10 @@ class SubmitLinksTest extends TestCase
 
             $this->fail("The URL $case passed validation when it should have failed.");
         }
-
+    }
         /** @test 4 */
-    function max_length_fails_when_too_long()
+
+        function max_length_fails_when_too_long()
     {
         $this->withoutExceptionHandling();
 
@@ -95,9 +96,8 @@ class SubmitLinksTest extends TestCase
 
             return;
         }
-
         $this->fail('Max length should trigger a ValidationException');
-        }
+    }
 
         /** @test 5 */
     function max_length_succeeds_when_under_max()
@@ -115,4 +115,4 @@ class SubmitLinksTest extends TestCase
 
         $this->assertDatabaseHas('links', $data);
     }
-    }
+}
