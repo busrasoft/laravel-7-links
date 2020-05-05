@@ -66,3 +66,44 @@ npm run watch
 - @foreach ($links as $link)
 -    <a href="{{ $link->url }}">{{ $link->title }}</a>
 - @endforeach
+* 
+* 
+* 
+* tests\Feature\SubmitLinksTest.php
+* php artisan make:test SubmitLinksTest
+# These tests should give you a high-level overview of what we are going to test:
+
+1. Verify that valid links get saved in the database
+2. When validation fails, links are not in the database
+3. Invalid URLs are not allowed
+4. Validation should fail when the fields are longer than the max:255 validation rule
+5. Validation should succeed when the fields are long enough according to max:255.
+
+- use RefreshDatabase;
+- 
+-    /** @test */
+-   function guest_can_submit_a_new_link()
+-   {
+-      $response = $this->post('/submit', [
+-           'title' => 'Example Title',
+-           'url' => 'http://example.com',
+-           'description' => 'Example description.',
+-       ]);
+- 
+-       $this->assertDatabaseHas('links', [
+-           'title' => 'Example Title'
+-       ]);
+- 
+-       $response
+-           ->assertStatus(302)
+-           ->assertHeader('Location', url('/'));
+- 
+-       $this
+-           ->get('/')
+-           ->assertSee('Example Title');
+-   }
+- 
+- 
+- 
+- 
+- 
